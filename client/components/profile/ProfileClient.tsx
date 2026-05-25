@@ -15,6 +15,7 @@ const TAB_LABELS: Record<string, string> = {
   wallet: '🪙 LinguaCoin',
   sell: '🛒 Kitob sotish',
 };
+const PREMIUM_PRICE_UZS = 10000;
 
 export default function ProfileClient() {
   const { user, profile, isPremium, isAdmin, signOut, refreshProfile } = useAuth();
@@ -24,6 +25,7 @@ export default function ProfileClient() {
   const [myBooks, setMyBooks] = useState<Book[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(false);
+  const [upgradingPremium, setUpgradingPremium] = useState(false);
   const supabase = getSupabaseClient();
 
   useEffect(() => {
