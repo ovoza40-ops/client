@@ -32,8 +32,10 @@ git push -u origin main
    - Choose your `linguabook-pro` repository
 
 2. **Configure Build Settings**:
-   - Build command: `cd client && npm install && npm run build`
-   - Publish directory: `client/.next`
+   - Base directory: `client`
+   - Build command: `npm run build`
+   - Publish directory: `.next`
+   - Next.js plugin: `@netlify/plugin-nextjs`
 
 3. **Set Environment Variables** in Netlify dashboard:
    - `NEXT_PUBLIC_SUPABASE_URL`: Your Supabase project URL
