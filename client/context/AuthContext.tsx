@@ -27,24 +27,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const supabase = getSupabaseClient();
 
-  const fetchProfile = useCallback(async (userId: string) => {
+  const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL?.toLowerCase().trim();
+
+  const fetchProfile = useCallback(async (userId: string, userEmail?: string) => {
     const { data } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', userId)
       .single();
-    if (data) setProfile(data as Profile);
-  }, [supabase]);
+
+    if (data) {
+      const profileData = data as Profile;
+      if (adminEmail && userEmail?.toLowerCase() === adminEmail && profileData.role !== 'admin') {
+        const { error } = await supabase.from('profiles').update({ role: 'admin' }).eq('id', userId);
+        if (!error) profileData.role = 'admin';
+      }
+      setProfile(profileData);
+    }
+  }, [supabase, adminEmail]);
 
   const refreshProfile = useCallback(async () => {
-    if (user) await fetchProfile(user.id);
+    if (user) await fetchProfile(user.id, user.email ?? undefined);
   }, [user, fetchProfile]);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
-      if (session?.user) fetchProfile(session.user.id);
+      if (session?.user) fetchProfile(session.user.id, session.user.email ?? undefined);
       setIsLoading(false);
     });
 
@@ -53,7 +63,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setSession(session);
         setUser(session?.user ?? null);
         if (session?.user) {
-          await fetchProfile(session.user.id);
+          await fetchProfile(session.user.id, session.user.email ?? undefined);
         } else {
           setProfile(null);
         }

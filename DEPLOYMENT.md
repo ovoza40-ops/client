@@ -32,7 +32,7 @@ git push -u origin main
    - Choose your `linguabook-pro` repository
 
 2. **Configure Build Settings**:
-   - Build command: `cd client && npm ci && npm run build`
+   - Build command: `cd client && npm install && npm run build`
    - Publish directory: `client/.next`
 
 3. **Set Environment Variables** in Netlify dashboard:
@@ -40,6 +40,7 @@ git push -u origin main
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase anonymous key
    - `OPENAI_API_KEY`: Your OpenAI API key
    - `NEXT_PUBLIC_APP_URL`: Your production URL (e.g., `https://your-domain.netlify.app`)
+   - `NEXT_PUBLIC_ADMIN_EMAIL`: Your admin account email for automatic admin access
 
 4. **Deploy**:
    - Click "Deploy site"
