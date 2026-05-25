@@ -1,0 +1,38 @@
+# Environment variables
+.env
+.env.local
+.env.local.example.bak
+.env.*.local
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Production
+.next/
+/out/
+/build
+dist/
+
+# Misc
+.DS_Store
+*.pem
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.vscode/
+.idea/
+
+# Audio/media files for testing
+audio_test.mp3
+*.wav
+*.mp3
+
+# OS files
+Thumbs.db
+.env.production
