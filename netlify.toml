@@ -1,6 +1,6 @@
 [build]
   command = "cd client && npm install && npm run build"
-  publish = "client/.next"
+  publish = "client/.next/static"
 
 [build.environment]
   NODE_VERSION = "20"
@@ -8,13 +8,5 @@
 [context.production.environment]
   NODE_ENV = "production"
 
-# Environment variables to set in Netlify dashboard
-# NEXT_PUBLIC_SUPABASE_URL
-# NEXT_PUBLIC_SUPABASE_ANON_KEY
-# OPENAI_API_KEY
-# NEXT_PUBLIC_APP_URL
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
