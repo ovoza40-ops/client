@@ -1,12 +1,9 @@
 [build]
   command = "cd client && npm install && npm run build"
-  publish = "client/.next/static"
+  publish = "client/.next"
 
 [build.environment]
   NODE_VERSION = "20"
 
 [context.production.environment]
   NODE_ENV = "production"
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
